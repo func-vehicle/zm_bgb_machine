@@ -17,18 +17,16 @@ Drag the contents of zm_yourmapname into your map's folder inside usermaps, and 
 
 In your zm_levelname.gsc file, add this line to the top of the file:  
 ```
-#using scripts\zm\_zm_bgb_fix;
+#using scripts\zm\_zm_bgb_machine;
 ```  
 In your zm_levelname.csc file, again add this line to the top of the file:  
 ```
-#using scripts\zm\_zm_bgb_fix;
+#using scripts\zm\_zm_bgb_machine;
 ```  
 In your zm_levelname.zone file, add these lines: 
 ```
 stringtable,gamedata/weapons/zm/zm_levelcommon_bgb.csv
 
-scriptparsetree,scripts/zm/_zm_bgb_fix.gsc
-scriptparsetree,scripts/zm/_zm_bgb_fix.csc
 scriptparsetree,scripts/zm/_zm_bgb_machine.gsc
 scriptparsetree,scripts/zm/_zm_bgb_machine.csc
 ```
@@ -39,8 +37,8 @@ Finally, you'll need to comment out lines 354 and 355 in `<root>/zone_source/all
 ```
 
 ### Placing the Prefabs in Radiant
-Open the Prefab Browser, and then navigate to the folder you placed the prefabs in earlier. There are two prefabs available. One is vending_bgb_fix_struct.map,
-and the other is vending_bgb_fix_initial_struct.map. The initial struct designates that Gobblegum machine as an initial spot. Initial spots have priority in being
+Open the Prefab Browser, and then navigate to the folder you placed the prefabs in earlier. There are two prefabs available. One is vending_bgb_machine_struct.map,
+and the other is vending_bgb_machine_initial_struct.map. The initial struct designates that Gobblegum machine as an initial spot. Initial spots have priority in being
 chosen over non-initial spots at the start of a game if a limited number of machines are set to be active.
 
 Drag one of them onto your map to place it. Unfortunately there is still no preview model for the machine, so use the slanted top of the clip brush to orient the
@@ -73,9 +71,9 @@ You can also disable the machines from moving using `level.disable_bgb_machines_
 
 If you want to give solo players the same Gobblegums as in coop (including the ones that are useless to solo players), use `level.remove_coop_bgbs_in_solo = false;`
 
-For other settings, like the pricing model and uses before moving, you'll need to edit _zm_bgb_fix.gsc. The pricing function is called `determine_cost(player)`.
+For other settings, like the pricing model and uses before moving, you'll need to edit _zm_bgb_machine.gsc. The pricing function is called `determine_cost(player)`.
 In short, this function needs to return the calculated cost (an int), or false if the player is not allowed to buy a Gobblegum (ie. has hit limit for this round).
-This function is then mirrored in _zm_bgb_fix.csc with some slight differences.
+This function is then mirrored in _zm_bgb_machine.csc with some slight differences.
 
 The function that determines whether the machine should move is called `bgb_machine_should_move()`. This function returns true if the machine is supposed to move,
 and false if it isn't. By default, it moves after 3 non-fire sale uses.
